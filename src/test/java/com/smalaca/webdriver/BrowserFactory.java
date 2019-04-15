@@ -17,7 +17,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.smalaca.webdriver.BrowserType.*;
-import static com.smalaca.webdriver.BrowserType.MSIE;
 
 class BrowserFactory {
     private static final Map<BrowserType, Function<Capabilities, WebDriver>> webDrivers = ImmutableMap.of(
@@ -30,7 +29,7 @@ class BrowserFactory {
     private static final Map<BrowserType, Supplier<Capabilities>> capabilities = ImmutableMap.of(
             CHROME, () -> {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless");
+//                chromeOptions.addArguments("--headless");
                 return chromeOptions;
             },
             FIREFOX, () -> {
