@@ -21,49 +21,23 @@ import java.util.function.Supplier;
 import static com.smalaca.webdriver.BrowserType.*;
 
 public class WebDriverFactory {
-    private static final Map<BrowserType, Supplier<WebDriver>> webDrivers = ImmutableMap.of(
-            CHROME, ChromeDriver::new,
-            FIREFOX, FirefoxDriver::new,
-            EDGE, EdgeDriver::new,
-            MSIE, InternetExplorerDriver::new
-    );
-
     public static WebDriver driver() {
         BrowserType browserType = aBrowserType();
+        Browser browser = new BrowserFactory().create(browserType);
         String gridAddress = System.getProperty("grid.address");
         String gridPort = System.getProperty("grid.port");
 
         if (gridAddress != null && gridPort != null) {
             URL gridUrl = anUrl(gridAddress, gridPort);
-            Capabilities capabalities = aCapabilities(browserType);
-            return new RemoteWebDriver(gridUrl, capabalities);
+            return new RemoteWebDriver(gridUrl, browser.capabilities());
         }
 
-        return webDrivers.get(browserType).get();
+        return browser.webDriver();
     }
 
     private static BrowserType aBrowserType() {
         String browserProperty = System.getProperty("browser", System.getProperty("default.browser")).toUpperCase();
         return BrowserType.valueOf(browserProperty);
-    }
-
-    private static Capabilities aCapabilities(BrowserType browserType) {
-        switch (browserType) {
-            case EDGE:
-                return new EdgeOptions();
-            case MSIE:
-                return new InternetExplorerOptions();
-            case CHROME:
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless");
-                return chromeOptions;
-            case FIREFOX:
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("-headless");
-                return firefoxOptions;
-        }
-
-        return null;
     }
 
     private static URL anUrl(String gridAddress, String gridPort) {
