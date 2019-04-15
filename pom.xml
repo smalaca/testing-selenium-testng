@@ -14,8 +14,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <chrome.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\chrome\73\chromedriver.exe
-        </chrome.driver.path>
+        <chrome.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\chrome\73\chromedriver.exe</chrome.driver.path>
+        <edge.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\edge\MicrosoftWebDriver.exe</edge.driver.path>
+        <firefox.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\firefox\geckodriver.exe</firefox.driver.path>
 
         <testng.version>6.14.3</testng.version>
         <selenium-java.version>3.141.59</selenium-java.version>
@@ -48,7 +49,8 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>${chrome.driver.path}</webdriver.chrome.driver>
-                        <default.browser>CHROME</default.browser>
+                        <webdriver.edge.driver>${edge.driver.path}</webdriver.edge.driver>
+                        <default.browser>EDGE</default.browser>
                     </systemPropertyVariables>
 
                     <suiteXmlFiles>src/test/resources/testng.xml</suiteXmlFiles>
