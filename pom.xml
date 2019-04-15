@@ -50,7 +50,8 @@
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>${chrome.driver.path}</webdriver.chrome.driver>
                         <webdriver.edge.driver>${edge.driver.path}</webdriver.edge.driver>
-                        <default.browser>EDGE</default.browser>
+                        <webdriver.geco.driver>${firefox.driver.path}</webdriver.geco.driver>
+                        <default.browser>CHROME</default.browser>
                     </systemPropertyVariables>
 
                     <suiteXmlFiles>src/test/resources/testng.xml</suiteXmlFiles>
