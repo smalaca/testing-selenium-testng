@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -17,11 +16,11 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class WebDriverFactory {
-    private static final Map<Browser, Supplier<WebDriver>> webDrivers = ImmutableMap.of(
-            Browser.CHROME, ChromeDriver::new,
-            Browser.FIREFOX, FirefoxDriver::new,
-            Browser.EDGE, EdgeDriver::new,
-            Browser.MSIE, InternetExplorerDriver::new
+    private static final Map<BrowserType, Supplier<WebDriver>> webDrivers = ImmutableMap.of(
+            BrowserType.CHROME, ChromeDriver::new,
+            BrowserType.FIREFOX, FirefoxDriver::new,
+            BrowserType.EDGE, EdgeDriver::new,
+            BrowserType.MSIE, InternetExplorerDriver::new
     );
 
     public static WebDriver driver() {
@@ -35,9 +34,9 @@ public class WebDriverFactory {
         }
 
         String browserProperty = System.getProperty("browser", System.getProperty("default.browser")).toUpperCase();
-        Browser browser = Browser.valueOf(browserProperty);
+        BrowserType browserType = BrowserType.valueOf(browserProperty);
 
-        return webDrivers.get(browser).get();
+        return webDrivers.get(browserType).get();
     }
 
     private static URL anUrl(String gridAddress, String gridPort) {

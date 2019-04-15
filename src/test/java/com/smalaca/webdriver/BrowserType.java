@@ -1,5 +1,5 @@
 package com.smalaca.webdriver;
 
-enum Browser {
+enum BrowserType {
     CHROME, EDGE, MSIE, FIREFOX
 }
