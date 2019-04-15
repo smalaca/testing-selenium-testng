@@ -12,34 +12,34 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class WebDriverTest {
-    private WebDriver driver;
+    private ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     @BeforeMethod
     public void initDriver() {
-        driver = WebDriverFactory.driver();
+        driver.set(WebDriverFactory.driver());
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        driver.get().quit();
     }
 
     @Test
     public void shouldCheckIfCanOpenGoogle() {
-        driver.get("http://www.google.com");
+        WebDriver webDriver = driver.get();
+        webDriver.get("http://www.google.com");
 
-        List<WebElement> elements = driver.findElements(By.name("q"));
+        List<WebElement> elements = webDriver.findElements(By.name("q"));
 
         Assert.assertEquals(1, elements.size());
     }
 
     @Test
     public void shouldCheckIfCanOpenCodeSprinters() {
-        WebDriver driver = WebDriverFactory.driver();
+        WebDriver webDriver = driver.get();
+        webDriver.get("http://agileszkolenia.pl");
 
-        driver.get("http://agileszkolenia.pl");
-
-        List<WebElement> elements = driver.findElements(By.id("mce-FNAME"));
+        List<WebElement> elements = webDriver.findElements(By.id("mce-FNAME"));
 
         Assert.assertEquals(1, elements.size());
     }
