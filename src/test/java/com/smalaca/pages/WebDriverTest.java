@@ -1,4 +1,4 @@
-package com.smalaca.pages.google;
+package com.smalaca.pages;
 
 import com.smalaca.webdriver.WebDriverFactory;
 import org.openqa.selenium.By;

@@ -3,7 +3,7 @@
 <suite name="Automation" verbose="5" >
     <test name="Regression1" parallel="methods" thread-count="5">
         <classes>
-            <class name="com.smalaca.pages.google.WebDriverTest"/>
+            <class name="com.smalaca.pages.WebDriverTest"/>
         </classes>
     </test>
 </suite>
