@@ -13,4 +13,8 @@ public class GoogleResultsPage {
     public boolean hasResults() {
         return webDriver.findElements(By.className("g")).size() > 0;
     }
+
+    public boolean hasResult(String urlAddress) {
+        return webDriver.findElements(By.linkText(urlAddress)).size() == 0;
+    }
 }

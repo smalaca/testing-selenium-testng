@@ -30,5 +30,6 @@ public class GooglePageTest {
         GoogleResultsPage resultsPage = mainPage.searchFor("codesprinters");
 
         Assert.assertTrue(resultsPage.hasResults());
+        Assert.assertTrue(resultsPage.hasResult("agileszkolenia.pl/"));
     }
 }
