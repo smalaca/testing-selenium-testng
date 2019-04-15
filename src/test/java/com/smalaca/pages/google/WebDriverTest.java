@@ -1,9 +1,9 @@
-package com.smalaca.webdriver;
+package com.smalaca.pages.google;
 
+import com.smalaca.webdriver.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,9 +13,7 @@ public class WebDriverTest {
 
     @Test
     public void shouldCheckIfCanOpenGoogle() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\sebas_000\\Dropbox\\Training\\Automatyzacja Testów\\webdriver\\chrome\\73\\chromedriver.exe");
-
-        WebDriver driver=new ChromeDriver();
+        WebDriver driver = WebDriverFactory.driver();
 
         driver.get("http://www.google.com");
 
