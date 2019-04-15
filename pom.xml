@@ -1,75 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.smalaca</groupId>
-  <artifactId>selenium</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>com.smalaca</groupId>
+    <artifactId>selenium</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-  <name>selenium</name>
+    <name>selenium</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <chrome.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\chrome\73\chromedriver.exe</chrome.driver.path>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <chrome.driver.path>C:\Users\sebas_000\Dropbox\Training\Automatyzacja Testów\webdriver\chrome\73\chromedriver.exe
+        </chrome.driver.path>
 
-    <testng.version>6.14.3</testng.version>
-    <selenium-java.version>3.141.59</selenium-java.version>
-    <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
-    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-  </properties>
+        <testng.version>6.14.3</testng.version>
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>${testng.version}</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-java</artifactId>
-      <version>${selenium-java.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-          <systemPropertyVariables>
-            <webdriver.chrome.driver>${chrome.driver.path}</webdriver.chrome.driver>
-            <default.browser>CHROME</default.browser>
-          </systemPropertyVariables>
-<!--          <suiteXmlFiles></suiteXmlFiles>-->
-        </configuration>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <webdriver.chrome.driver>${chrome.driver.path}</webdriver.chrome.driver>
+                        <default.browser>CHROME</default.browser>
+                    </systemPropertyVariables>
 
-        <executions>
-          <execution>
-            <configuration>
-              <systemPropertyVariables>
-                <browser>${browser}</browser>
-                <grid.address>${grid.address}</grid.address>
-                <grid.port>${grid.port}</grid.port>
-              </systemPropertyVariables>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+                    <suiteXmlFiles>src/test/resources/testng.xml</suiteXmlFiles>
+                </configuration>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-      </plugin>
-    </plugins>
-  </build>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <browser>${browser}</browser>
+                                <grid.address>${grid.address}</grid.address>
+                                <grid.port>${grid.port}</grid.port>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
