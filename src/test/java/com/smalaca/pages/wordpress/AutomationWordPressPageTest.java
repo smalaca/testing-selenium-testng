@@ -25,12 +25,12 @@ public class AutomationWordPressPageTest extends BasePageTest {
     @Test
     public void shouldAddReplyToComment() {
         NoteComment comment = noteCommentFactory.random();
-        NoteComment replay = noteCommentFactory.random();
+        NoteComment reply = noteCommentFactory.random();
         NotePage reloadedNotePage = openFirstNotePage().addComment(comment);
 
-        reloadedNotePage.addReplayToComment(comment, replay);
+        reloadedNotePage.addReplyToComment(comment, reply);
 
-        assertTrue(reloadedNotePage.hasReplay(comment, replay));
+        assertTrue(reloadedNotePage.hasReply(comment, reply));
     }
 
     private NotePage openFirstNotePage() {

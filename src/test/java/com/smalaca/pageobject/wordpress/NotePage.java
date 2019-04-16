@@ -56,19 +56,19 @@ public class NotePage {
         return webElement.findElement(By.cssSelector(cssSelector)).getText().equals(value);
     }
 
-    public void addReplayToComment(NoteComment comment, NoteComment replay) {
-        List<WebElement> comments = webDriver.findElements(By.cssSelector("li[class*=comment]"));
-        WebElement existingComment = comments.stream().filter(webElement -> containsComment(webElement, comment)).findFirst().get();
+    public void addReplyToComment(NoteComment comment, NoteComment reply) {
+        openReplyFormFor(comment);
+        addComment(reply);
+    }
 
+    private void openReplyFormFor(NoteComment comment) {
         String xpath = "//div[@class='comment-content']/p[text()='" + comment.getComment() + "']/../../div[@class='reply']/a";
         webDriver.findElement(By.xpath(xpath)).click();
 
         new WebDriverWait(webDriver, 1).until(ExpectedConditions.presenceOfElementLocated(By.className("comment-respond")));
-
-        addComment(replay);
     }
 
-    public boolean hasReplay(NoteComment comment, NoteComment replay) {
+    public boolean hasReply(NoteComment comment, NoteComment reply) {
         String xpath = "//div[@class='comment-content']/p[text()='" + comment.getComment() + "']" +
                 "/../..//div[contains(@class, 'comment-author')]/b[text()='" + comment.getAuthor() + "']" +
                 "/../../../../ul[@class='children']//li[contains(@class,'comment')]";
@@ -77,6 +77,6 @@ public class NotePage {
 
         return replys
                 .stream()
-                .anyMatch(webElement -> containsComment(webElement, replay));
+                .anyMatch(webElement -> containsComment(webElement, reply));
     }
 }
