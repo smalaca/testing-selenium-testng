@@ -29,7 +29,7 @@ class BrowserFactory {
     private static final Map<BrowserType, Supplier<Capabilities>> capabilities = ImmutableMap.of(
             CHROME, () -> {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless");
+//                chromeOptions.addArguments("--headless");
                 return chromeOptions;
             },
             FIREFOX, () -> {
