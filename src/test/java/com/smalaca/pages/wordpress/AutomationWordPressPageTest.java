@@ -33,7 +33,7 @@ public class AutomationWordPressPageTest extends BasePageTest {
         assertTrue(reloadedNotePage.hasReplay(comment, replay));
     }
 
-    protected NotePage openFirstNotePage() {
+    private NotePage openFirstNotePage() {
         AutomationWordPressPage page = new AutomationWordPressPage(getWebDriver());
         page.open();
         return page.openFirstNote();
