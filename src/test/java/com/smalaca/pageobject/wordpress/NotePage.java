@@ -4,6 +4,8 @@ import com.smalaca.pageobject.wordpress.domain.NoteComment;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -52,5 +54,29 @@ public class NotePage {
 
     private boolean containsValueUnder(WebElement webElement, String cssSelector, String value) {
         return webElement.findElement(By.cssSelector(cssSelector)).getText().equals(value);
+    }
+
+    public void addReplayToComment(NoteComment comment, NoteComment replay) {
+        List<WebElement> comments = webDriver.findElements(By.cssSelector("li[class*=comment]"));
+        WebElement existingComment = comments.stream().filter(webElement -> containsComment(webElement, comment)).findFirst().get();
+
+        String xpath = "//div[@class='comment-content']/p[text()='" + comment.getComment() + "']/../../div[@class='reply']/a";
+        webDriver.findElement(By.xpath(xpath)).click();
+
+        new WebDriverWait(webDriver, 1).until(ExpectedConditions.presenceOfElementLocated(By.className("comment-respond")));
+
+        addComment(replay);
+    }
+
+    public boolean hasReplay(NoteComment comment, NoteComment replay) {
+        String xpath = "//div[@class='comment-content']/p[text()='" + comment.getComment() + "']" +
+                "/../..//div[contains(@class, 'comment-author')]/b[text()='" + comment.getAuthor() + "']" +
+                "/../../../../ul[@class='children']//li[contains(@class,'comment')]";
+
+        List<WebElement> replys = webDriver.findElements(By.xpath(xpath));
+
+        return replys
+                .stream()
+                .anyMatch(webElement -> containsComment(webElement, replay));
     }
 }

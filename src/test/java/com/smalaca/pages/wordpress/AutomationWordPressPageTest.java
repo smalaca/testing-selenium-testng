@@ -11,16 +11,31 @@ import static org.testng.Assert.assertTrue;
 
 public class AutomationWordPressPageTest extends BasePageTest {
 
+    private final NoteCommentFactory noteCommentFactory = new NoteCommentFactory();
+
     @Test
     public void shouldAddNewComment() {
-        NoteCommentFactory noteCommentFactory = new NoteCommentFactory();
         NoteComment comment = noteCommentFactory.random();
-        AutomationWordPressPage page = new AutomationWordPressPage(getWebDriver());
-        page.open();
 
-        NotePage notePage = page.openFirstNote();
-        NotePage reloadedNotePage = notePage.addComment(comment);
+        NotePage reloadedNotePage = openFirstNotePage().addComment(comment);
 
         assertTrue(reloadedNotePage.hasComment(comment));
+    }
+
+    @Test
+    public void shouldAddReplyToComment() {
+        NoteComment comment = noteCommentFactory.random();
+        NoteComment replay = noteCommentFactory.random();
+        NotePage reloadedNotePage = openFirstNotePage().addComment(comment);
+
+        reloadedNotePage.addReplayToComment(comment, replay);
+
+        assertTrue(reloadedNotePage.hasReplay(comment, replay));
+    }
+
+    protected NotePage openFirstNotePage() {
+        AutomationWordPressPage page = new AutomationWordPressPage(getWebDriver());
+        page.open();
+        return page.openFirstNote();
     }
 }
