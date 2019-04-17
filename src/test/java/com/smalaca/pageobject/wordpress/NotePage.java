@@ -4,6 +4,8 @@ import com.smalaca.pageobject.wordpress.domain.NoteComment;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,27 +15,38 @@ public class NotePage {
     private static final String AUTHOR_FIELD_NAME = "author";
     private static final String MAIL_ADDRESS_FIELD_NAME = "email";
     private static final String COMMENT_FIELD_NAME = "comment";
-    public static final String SUBMIT_BUTTON_NAME = "submit";
+    private static final String SUBMIT_BUTTON_NAME = "submit";
 
     private final WebDriver webDriver;
 
+    @FindBy(name = AUTHOR_FIELD_NAME)
+    private WebElement authorField;
+
+    @FindBy(name = MAIL_ADDRESS_FIELD_NAME)
+    private WebElement mailAddressField;
+
+    @FindBy(name = COMMENT_FIELD_NAME)
+    private WebElement commentField;
+
+    @FindBy(name = SUBMIT_BUTTON_NAME)
+    private WebElement submitButton;
+
     NotePage(WebDriver webDriver) {
         this.webDriver = webDriver;
+        PageFactory.initElements(webDriver, this);
     }
 
     public NotePage addComment(NoteComment comment) {
-        fillWithValue(AUTHOR_FIELD_NAME, comment.getAuthor());
-        fillWithValue(MAIL_ADDRESS_FIELD_NAME, comment.getMailAddress());
-        fillWithValue(COMMENT_FIELD_NAME, comment.getComment());
+        fillWithValue(authorField, comment.getAuthor());
+        fillWithValue(mailAddressField, comment.getMailAddress());
+        fillWithValue(commentField, comment.getComment());
 
-        WebElement button = webDriver.findElement(By.name(SUBMIT_BUTTON_NAME));
-        button.submit();
+        submitButton.submit();
 
         return new NotePage(webDriver);
     }
 
-    private void fillWithValue(String fieldName, String value) {
-        WebElement element = webDriver.findElement(By.name(fieldName));
+    private void fillWithValue(WebElement element, String value) {
         element.click();
         element.sendKeys(value);
     }
