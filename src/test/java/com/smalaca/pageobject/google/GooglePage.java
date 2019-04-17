@@ -1,5 +1,6 @@
 package com.smalaca.pageobject.google;
 
+import com.smalaca.pageobject.page.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,30 +9,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-abstract class GooglePage {
-    private final WebDriver webDriver;
-
+abstract class GooglePage extends Page {
     GooglePage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     protected List<WebElement> findElements(By by) {
-        return webDriver.findElements(by);
+        return aWebDriver().findElements(by);
     }
 
     protected WebElement findElement(By by) {
-        return webDriver.findElement(by);
+        return aWebDriver().findElement(by);
     }
 
     protected WebElement waitForPresenceOf(By by) {
-        return new WebDriverWait(webDriver, 1).until(ExpectedConditions.presenceOfElementLocated(by));
-    }
-
-    protected void open(String url) {
-        webDriver.get(url);
-    }
-
-    protected WebDriver aWebDriver() {
-        return webDriver;
+        return new WebDriverWait(aWebDriver(), 1).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }
